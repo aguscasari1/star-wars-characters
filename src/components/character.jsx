@@ -13,34 +13,37 @@ const [name, setName] = useState(props.character.name);
 const [films, setFilms] = useState(props.character.films.length);
 const [height, setHeight] = useState(props.character.height);
 const [mass, setMass] = useState(props.character.mass);
-
+const index = props.index;
 //let cannotBackToList = !isSaved && edit;
 
 const setAsFav = (char) => {
   setFav(true);
   char.fav = true;
-  console.log(char)
+  characterModified();
 };
 
 const onChangeName = (event) => {
   setName(event.target.value)
   props.character.name = name;
+  characterModified();
 }
 
 const onChangeHeight = (event) => {
   setHeight(event.target.value)
   props.character.height = height;
+  characterModified();
 }
 
 const onChangeMass = (event) => {
   setMass(event.target.value);
   props.character.mass = mass;
+  characterModified();
 }
 
 const setAsNotFav = (char) => {
   setFav(false);
   char.fav = false;
-  console.log(char)
+  characterModified();
 };
 
 const editCharacter = () => {
@@ -49,8 +52,18 @@ const editCharacter = () => {
 };
 
 useEffect(() => {
+  if(props.character.fav === true) {
+    setFav(true);
+  }
+  characterModified();
+}, [props.character.fav]);
+
+const characterModified = () => {
   setCharacter(props.character)
-}, [props.character]);
+  const listModified = JSON.parse(localStorage.getItem('starWarsCharacters'));
+  listModified[index] = props.character;
+  localStorage.setItem('starWarsCharacters', JSON.stringify(listModified));
+};
 
 
     return( 
