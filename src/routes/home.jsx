@@ -56,8 +56,8 @@ useEffect(() => {
 
 
     return(
-            <div className="bg-black h-screen">
-                <Container className="pt-14">
+            <div className="bg-black h-screen px-auto">
+                <Container className="pt-14 bg-black">
                     <h1 className="text-white text-4xl">Star Wars characters</h1>
         
                         {!showCharacter ? 
